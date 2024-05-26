@@ -1,0 +1,7 @@
+<%= form_for [locals[:blogpage], locals[:blogpage].comments.build], class: 'reply-form' do |form| %>
+        <%= form.hidden_field :parent_id, value: locals[:parent]&.id %>
+        <div class="flex items-center mb-4 mt-5">
+            <%= form.text_area :content, class: "border-2 rounded-lg comment-area", placeholder: "Add a comment...", id: "#{locals[:parent]&.id}" %>
+            <%= button_tag "Reply", type:"button", class: "render-reply btn bg-blue-600 text-white px-4 py-2 rounded-r-lg ml-2", id: "#{locals[:blogpage].id}" %>
+        </div>
+    <% end %>

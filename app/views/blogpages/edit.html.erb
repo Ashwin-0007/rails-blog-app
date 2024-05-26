@@ -1,0 +1,35 @@
+<div class="new-student flex flex-col justify-center items-center">
+    <div class="rounded-lg bg-gray-150 shadow-2xl p-8 w-[350px] mt-20">
+        <div class=" flex justify-center items-center pb-4 mb-4">
+            <h1 class="text-2xl font-bold">Edit Blog</h1>
+        </div>
+         
+        <%= form_with model: @blogpage do |form| %>
+            <div class="mb-2">
+                <%= form.label :title, class: "label-1 font-semibold" %>
+                <%= form.text_field :title, class: "input-text border-2 mt-1 mb-1 w-full leading-9" %>
+            </div>
+            <div class="mb-2">
+                <%= form.label :author, class: "label-1 font-semibold w-full" %><br>
+            </div>
+            <div class="mt-2">    
+                <%= form.text_field :author,class: "form-select border-2 w-full leading-9" %>
+           </div>
+            <div class=" mt-2">
+                <%= form.label :content, class: "label-1 font-semibold" %><br>
+            </div>
+            <div class = "mt-2">    
+               <%= form.text_area :content, class: "form-select border-2 w-full leading-9" %>
+            </div>
+            <div class=" mt-2">
+                <%= form.label :avatar,"Choose Image", class: "label-1 font-semibold" %><br>
+            </div>
+            <div class = "mt-2">    
+               <%= form.file_field :avatar, accept: 'image/png,image/jpeg,image/jpg', class: "form-select border-2 w-full leading-9" %>
+            </div>
+            <div class="text-center mt-6">
+                <%= form.submit class: "btn bg-blue-600 py-2 px-4 rounded-lg text-white" %>
+            </div>    
+        <% end %>
+    </div>
+</div>            

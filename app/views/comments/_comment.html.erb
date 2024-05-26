@@ -1,0 +1,35 @@
+<div class="comment-container mt-2 m-4" id="maincontainer">
+    <div class="flex flex-col justify-start border p-2 rounded-lg">
+        <% if comment.user.present? %>
+            <p><%= comment.content %></p>
+            <span class="font-semibold"> <%= comment.user.username %></span>
+            <span class="text-xs text-gray-500">Posted <%= time_ago_in_words(comment.created_at) %> ago</span>
+            <a href="#" class="comment-form-display text-blue-500">reply</a>
+            <div class="comment-form hidden">
+                <%= render 'comments/form', locals: {blogpage: @blogpage, parent: comment} %>
+            </div>    
+        <% end %>
+
+        <% if current_user == comment.user %>
+            <div class="comment-destroy flex mt-2">
+               <%= button_to "Delete", [blogpage, comment], class: "btn bg-red-700 p-1 text-white rounded-lg", method: :delete %>
+            </div>
+        <% end %>
+
+        <div id="replies">
+            <% comment.replies.each do |reply| %>
+                <%= render partial: 'comments/comment', locals: { blogpage: blogpage, comment: reply } %>
+            <% end %>
+        </div>
+       
+    </div>  
+</div>
+
+<script>
+    document.querySelectorAll('.comment-form-display').forEach((el) => {
+       el.addEventListener('click', (ev) =>{
+        ev.preventDefault();
+        el.nextElementSibling.style='display:block;'
+       }) 
+    });
+</script>    

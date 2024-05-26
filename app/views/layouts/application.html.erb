@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LoginSignup</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+  <%# <link rel="preload" href="/assets/application-6e0367a613bdef92749af3cdf0e76eb1505af1b1b957ff5cc1ae3235c68ab6f7.css" as="style"> %>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  </head>
+
+  <body>
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger" id="flash-message"><%= alert %></p>
+    <% end %>
+    <p class="navbar-text float-right mb-4">
+      <% if user_signed_in? %>
+        <%# Logged in as <strong><%= current_user.email %></strong>
+        <%# <%= link_to "Edit profile", edit_user_registration_path, class: "navbar-link" %> 
+        <%# <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-link" %>
+      <% else %>
+        <%# <%= link_to "Sign up", new_user_registration_path, class: "navbar-link"  %> 
+        <%# <%= link_to "Login", new_user_session_path, class: "navbar-link"  %>
+      <% end %>
+    </p>
+    <%= yield %>
+    <script>
+  // Function to hide the flash message
+        function hideFlashMessage() {
+          var flashMessage = document.getElementById('flash-message');
+          if (flashMessage) {
+            flashMessage.remove();
+          }
+        }
+
+     // Set timeout to hide flash message after 2 seconds
+     setTimeout(hideFlashMessage, 3000); // Adjust the time as needed
+  
+      
+</script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<div class="flex justify-center items-center">
+  <div class="bg-gray-150 shadow-2xl p-8 mt-8">
+    <div class="flex  justify-center items-center"> 
+      <h2 class="text-2xl font-semibold font-serif">Sign up</h2>
+    </div>
+    <div class="pl-16">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "users/shared/error_messages", resource: resource %>
+          <div class="field mt-6">
+          <%= f.label :username,class:"text-xl" %><br />
+          <%= f.text_field :username, autofocus: true, autocomplete: "email",class:"p-2 border-2 mt-2 rounded-lg" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :email,class:"text-xl" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"p-2 border-2 mt-2 rounded-lg" %>
+        </div>
+
+
+        <div class="field">
+          <%= f.label :password, "Password (must be 8 character)", class:"text-xl" %><br>
+          <%= f.password_field :password, autocomplete: "new-password",class:"p-2 border-2 mt-2 rounded-lg" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation , class:"text-xl"%><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"p-2 border-2 mt-2 rounded-lg" %>
+        </div>
+
+        <div class="actions mt-4 ml-16 ">
+          <%= f.submit "Sign up",class:"bg-blue-600 pl-4 pr-4 pt-1 pb-1 text-white rounded-lg" %>
+        </div>
+        
+      <% end %>
+    </div>
+
+    <%# <%= render "users/shared/links" %> 
+  </div>  
+</div>    

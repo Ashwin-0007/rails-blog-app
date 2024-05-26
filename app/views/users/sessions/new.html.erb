@@ -1,0 +1,35 @@
+<div class="flex justify-center items-center ">
+  <div class=" bg-gray-150 shadow-2xl p-8 mt-8 rounded-lg">
+    <div class="flex  justify-center items-center">
+      <h2 class="text-2xl font-semibold font-serif">Log in</h2>
+    </div>
+    <div class="ml-12">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field mt-6">
+          <%= f.label :email,"Username or Email", class:"text-xl" %><br />
+          <%= f.text_field :email, autofocus: true, autocomplete: "email", class:"p-1 border-2 mt-2 rounded-lg"%>
+        </div>
+
+        <div class="field mt-1">
+          <%= f.label :password, class:"text-xl" %><br />
+          <%= f.password_field :password, autocomplete: "current-password", class:"p-1 border-2 mt-2 rounded-lg " %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field mt-2">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me, class:"" %>
+          </div>
+        <% end %>
+
+        <div class="actions mt-4 ml-16 ">
+          <%= f.submit "Log in", class:"bg-blue-600 pl-4 pr-4 pt-1 pb-1 text-white rounded-lg" %>
+        </div>
+      <% end %>
+      <div class="flex gap-1 text-blue-600 mt-5">
+        <%= render "users/shared/links" %>
+      </div>  
+    </div>  
+  </div>
+</div>
+

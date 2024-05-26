@@ -1,0 +1,6 @@
+<div class="container">
+  <%= render 'comments/form', blogpage: @blogpage%>
+    <% @comments.each do |comment|%>
+      <%= render 'comments/comment',blogpage: @blogpage, comment: comment%>
+    <% end %>  
+</div>

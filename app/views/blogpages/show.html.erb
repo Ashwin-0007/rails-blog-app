@@ -1,0 +1,97 @@
+<!--div><%= turbo_stream_from dom_id(@blogpage)%><div-->
+<div class=" flex flex-col justify-center items-center">
+    <div class="bg-pink-150 p-6 rounded-lg  mt-20">
+        <%# <div class="header mt-5 flex  flex-col justify-center items-center">   
+            <h1 class=" text-2xl font-bold font-serif"></h1>
+        </div> %>
+
+        <div class="s-detail font-mono mb-2 mt-5">
+            <%= image_tag @blogpage.avatar, class:"object-cover w-[60%] h-[500px]" %>
+        </div>
+        <div class="s-detail font-mono mb-2 mt-7">
+            <strong> Title: </strong>
+            <%= @blogpage.title %>
+        </div>
+        <div class="s-detail font-mono mb-2">
+            <strong>Author: </strong>
+            <%= @blogpage.author %>
+        </div>
+        <div class="s-detail font-mono mb-2">
+            <strong>Content:</strong>
+            <%= @blogpage.content %>
+        </div>
+        
+        <div class="btn  mt-2 flex justify-between mt-8 w-full">
+            <p class="link border-2 bg-blue-700 text-white pt-1 pb-1 pl-3 pr-3 rounded-lg"><%= link_to 'Back', root_path %></p>  
+            <% if current_user == @blogpage.user %>
+                <p class="link border-2 bg-blue-700 text-white pt-1  pb-1 pl-3 pr-3 rounded-lg"><%= link_to 'Edit', edit_blogpage_path(@blogpage) %></p>
+                <p><%= button_to 'Delete', @blogpage, method: :delete, class:"bg-red-700 text-white p-1 pl-2 pr-2 rounded-lg"%></p>  
+            <% end %>
+        </div>
+    </div>
+</div>
+
+  <div id ="comments" class="comment-containers ml-5">
+        <% @comments.each do |comment| %>
+            <% unless comment.parent.present? %>
+                <%= render partial: 'comments/comment', locals: { blogpage: @blogpage, comment: comment } %>
+            <% end %>
+        <% end %>
+    </div>    
+    
+    <%= render 'comments/form', locals: {blogpage: @blogpage, parent: nil} %>      
+
+
+<script>
+function commentPage() {
+const commentBtns = $(".render-comment");
+commentBtns.off('click');
+$(commentBtns).each(function(index, btn) {
+    console.log(btn.id);
+    $(btn).click(function() {
+        // formData = $('.new_comment').serialize( );
+        // console.log(formData)
+        // console.log("Button clicked!");
+        
+        
+        const form = $(btn).closest('form');
+
+        console.log("====formData", form)
+        const formData = form.serializeArray();
+        
+       const parentId = form.find("input[name='comment[parent_id]']").val();
+        // console.log("=============",parentId);
+        formData.push({ name: "comment[parent_id]", value: parentId });
+
+        $.ajax({
+            method: "POST",
+            url: `/blogpages/${btn.id}/comments`,
+            data: formData,
+            success: function(response) {
+
+                // console.log("Success!", response);
+                  
+                form.append(response)
+                
+                commentPage();
+                if (form && form.length > 0) {
+                    form[0].reset(); 
+                }
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", status, error);
+            }
+        });
+            
+    });
+});
+
+};                   
+ 
+commentPage();
+   
+</script>
+   
+
+
